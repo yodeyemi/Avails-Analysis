@@ -1,0 +1,115 @@
+---
+title: "LabProDG data extraction"
+output: html_notebook
+---
+
+Attempting to extract MIC data directly from LabProDG export file
+
+loading packages
+```{r}
+library(readr)
+library(dplyr)
+library(stringr)
+library(tidyr)
+library(tibble)
+```
+
+Loading data
+```{r}
+setwd("C:/Users/alamsa/OneDrive - Danaher/R stuff/BB4 part 1 data avails phase 1")
+LabPro<-tibble(read.delim('20210616Cclin.txt'))
+```
+
+Selecting relevant columns and creating data frame for each MIC number
+```{r}
+MIC1<-LabPro%>%
+  select(Specimen_No, Isolate_No, ISOLATE_Collect_Date,Replicate_No, Organism_Desc, Replicate_FREETEXT, Replicate_Comment_1, TESTGROUP_ID, 
+         MIC_1_ID, MIC_1_Desc, MIC_1_MICTEXT, MIC_1_MICINDEX)%>%
+  rename(SampleID=Specimen_No, barcode=Isolate_No,testdate=ISOLATE_Collect_Date, strains=Organism_Desc,Dry_readtime=Replicate_Comment_1, panel=TESTGROUP_ID, anti=MIC_1_ID, drugname=MIC_1_Desc, LPDG_MIC=MIC_1_MICTEXT, LPDG_DSI=MIC_1_MICINDEX)%>%
+  filter(drugname != "N/A")%>%
+  mutate(LPDG_DSI=as.numeric(LPDG_DSI))
+
+MIC2<-LabPro%>%
+  select(Specimen_No, Isolate_No, ISOLATE_Collect_Date,Replicate_No, Organism_Desc, Replicate_FREETEXT, Replicate_Comment_1, TESTGROUP_ID,
+         MIC_2_ID, MIC_2_Desc, MIC_2_MICTEXT, MIC_2_MICINDEX)%>%
+  rename(SampleID=Specimen_No, barcode=Isolate_No,testdate=ISOLATE_Collect_Date, strains=Organism_Desc,Dry_readtime=Replicate_Comment_1, panel=TESTGROUP_ID, anti=MIC_2_ID, drugname=MIC_2_Desc, LPDG_MIC=MIC_2_MICTEXT, LPDG_DSI=MIC_2_MICINDEX)%>%
+  filter(drugname != "N/A")%>%
+  mutate(LPDG_DSI=as.numeric(LPDG_DSI))
+
+MIC3<-LabPro%>%
+  select(Specimen_No, Isolate_No, ISOLATE_Collect_Date,Replicate_No, Organism_Desc, Replicate_FREETEXT, Replicate_Comment_1, TESTGROUP_ID,
+         MIC_3_ID, MIC_3_Desc, MIC_3_MICTEXT, MIC_3_MICINDEX)%>%
+  rename(SampleID=Specimen_No, barcode=Isolate_No,testdate=ISOLATE_Collect_Date, strains=Organism_Desc,Dry_readtime=Replicate_Comment_1, panel=TESTGROUP_ID, anti=MIC_3_ID, drugname=MIC_3_Desc, LPDG_MIC=MIC_3_MICTEXT, LPDG_DSI=MIC_3_MICINDEX)%>%
+  filter(drugname != "N/A")%>%
+  mutate(LPDG_DSI=as.numeric(LPDG_DSI))
+
+MIC4<-LabPro%>%
+  select(Specimen_No, Isolate_No, ISOLATE_Collect_Date,Replicate_No, Organism_Desc, Replicate_FREETEXT, Replicate_Comment_1, TESTGROUP_ID,
+         MIC_4_ID, MIC_4_Desc, MIC_4_MICTEXT, MIC_4_MICINDEX)%>%
+  rename(SampleID=Specimen_No, barcode=Isolate_No,testdate=ISOLATE_Collect_Date, strains=Organism_Desc,Dry_readtime=Replicate_Comment_1, panel=TESTGROUP_ID, anti=MIC_4_ID, drugname=MIC_4_Desc, LPDG_MIC=MIC_4_MICTEXT, LPDG_DSI=MIC_4_MICINDEX)%>%
+  filter(drugname != "N/A")%>%
+  mutate(LPDG_DSI=as.numeric(LPDG_DSI))
+
+MIC5<-LabPro%>%
+  select(Specimen_No, Isolate_No, ISOLATE_Collect_Date,Replicate_No, Organism_Desc, Replicate_FREETEXT, Replicate_Comment_1, TESTGROUP_ID,
+         MIC_5_ID, MIC_5_Desc, MIC_5_MICTEXT, MIC_5_MICINDEX)%>%
+  rename(SampleID=Specimen_No, barcode=Isolate_No,testdate=ISOLATE_Collect_Date, strains=Organism_Desc,Dry_readtime=Replicate_Comment_1, panel=TESTGROUP_ID, anti=MIC_5_ID, drugname=MIC_5_Desc, LPDG_MIC=MIC_5_MICTEXT, LPDG_DSI=MIC_5_MICINDEX)%>%
+  filter(drugname != "N/A")%>%
+  mutate(LPDG_DSI=as.numeric(LPDG_DSI))
+
+MIC6<-LabPro%>%
+  select(Specimen_No, Isolate_No, ISOLATE_Collect_Date,Replicate_No, Organism_Desc, Replicate_FREETEXT, Replicate_Comment_1, TESTGROUP_ID,
+         MIC_6_ID, MIC_6_Desc, MIC_6_MICTEXT, MIC_6_MICINDEX)%>%
+  rename(SampleID=Specimen_No, barcode=Isolate_No,testdate=ISOLATE_Collect_Date, strains=Organism_Desc,Dry_readtime=Replicate_Comment_1, panel=TESTGROUP_ID, anti=MIC_6_ID, drugname=MIC_6_Desc, LPDG_MIC=MIC_6_MICTEXT, LPDG_DSI=MIC_6_MICINDEX)%>%
+  filter(drugname != "N/A")%>%
+  mutate(LPDG_DSI=as.numeric(LPDG_DSI))
+
+MIC7<-LabPro%>%
+  select(Specimen_No, Isolate_No, ISOLATE_Collect_Date,Replicate_No, Organism_Desc, Replicate_FREETEXT, Replicate_Comment_1, TESTGROUP_ID,
+         MIC_7_ID, MIC_7_Desc, MIC_7_MICTEXT, MIC_7_MICINDEX)%>%
+  rename(SampleID=Specimen_No, barcode=Isolate_No,testdate=ISOLATE_Collect_Date, strains=Organism_Desc,Dry_readtime=Replicate_Comment_1, panel=TESTGROUP_ID, anti=MIC_7_ID, drugname=MIC_7_Desc, LPDG_MIC=MIC_7_MICTEXT, LPDG_DSI=MIC_7_MICINDEX)%>%
+  filter(drugname != "N/A")%>%
+  mutate(LPDG_DSI=as.numeric(LPDG_DSI))
+
+MIC8<-LabPro%>%
+  select(Specimen_No, Isolate_No, ISOLATE_Collect_Date,Replicate_No, Organism_Desc, Replicate_FREETEXT, Replicate_Comment_1, TESTGROUP_ID,
+         MIC_8_ID, MIC_8_Desc, MIC_8_MICTEXT, MIC_8_MICINDEX)%>%
+  rename(SampleID=Specimen_No, barcode=Isolate_No,testdate=ISOLATE_Collect_Date, strains=Organism_Desc,Dry_readtime=Replicate_Comment_1, panel=TESTGROUP_ID, anti=MIC_8_ID, drugname=MIC_8_Desc, LPDG_MIC=MIC_8_MICTEXT, LPDG_DSI=MIC_8_MICINDEX)%>%
+  filter(drugname != "N/A")%>%
+  mutate(LPDG_DSI=as.numeric(LPDG_DSI))
+
+MIC9<-LabPro%>%
+  select(Specimen_No, Isolate_No, ISOLATE_Collect_Date,Replicate_No, Organism_Desc, Replicate_FREETEXT, Replicate_Comment_1, TESTGROUP_ID,
+         MIC_9_ID, MIC_9_Desc, MIC_9_MICTEXT, MIC_9_MICINDEX)%>%
+  rename(SampleID=Specimen_No, barcode=Isolate_No,testdate=ISOLATE_Collect_Date, strains=Organism_Desc,Dry_readtime=Replicate_Comment_1, panel=TESTGROUP_ID, anti=MIC_9_ID, drugname=MIC_9_Desc, LPDG_MIC=MIC_9_MICTEXT, LPDG_DSI=MIC_9_MICINDEX)%>%
+  filter(drugname != "N/A")%>%
+  mutate(LPDG_DSI=as.numeric(LPDG_DSI))
+
+
+
+  
+ 
+```
+Concatenate data frames, filter to only manual reads, extract info from SampleID
+
+```{r}
+LabPro_slim<-bind_rows(list(MIC1, MIC2, MIC3, MIC4, MIC5, MIC6, MIC7, MIC8, MIC9))%>%
+  filter(Replicate_No=="M   ")%>%
+  mutate(ID=str_sub(SampleID, 1,5))%>%
+  select(testdate,Replicate_No, barcode, SampleID, ID, strains, Dry_readtime, panel, anti, drugname, LPDG_MIC, LPDG_DSI)%>%
+  mutate(InocSource=str_sub(SampleID, 9,9), .after=ID)%>%
+  mutate(PBCInstrument=str_sub(SampleID, 11,11), .after=InocSource)%>%
+  mutate(PBCTime=str_sub(SampleID, 12,13), .after=PBCInstrument)
+  #mutate(InocSource='B', .after=ID)%>%
+  #mutate(PBCInstrument=str_sub(SampleID, 9,9), .after=InocSource)%>%
+  #mutate(PBCTime=str_sub(SampleID, 10,10), .after=PBCInstrument)%>%
+  #mutate(PBCTime=str_pad(PBCTime, 2, side = "left", pad = "0"),)
+```
+
+
+export info to csv
+
+```{r}
+write_csv(LabPro_slim, "20210616Cclin.csv")
+```
+
