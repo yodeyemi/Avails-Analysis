@@ -1,0 +1,50 @@
+library (tidyr)
+library(ggplot2)
+library(dplyr)
+
+# import dataset
+
+df <- read.csv("C://Users//oodeyemi//Desktop//Baccount_4_viz.csv")
+names(df)
+df$testdate <- NULL
+names(df)
+
+# fix the column names X1 - X9 to cycle_1 to cycle_9
+################################################################################
+# paste C to X1- X9
+df <- df %>% rename_with(.cols = X1:X9, function(x){paste0("C", x)}) 
+names(df)
+######################################################################################
+# remove 'X' using regular expression regex gsub
+colnames(df) <- gsub("X", "", colnames(df))
+names(df)
+
+############################################################################################
+
+df <- df%>%select(G_or_I,strains,InocSource,ID,C1:C9)
+names(df)
+#############################################################################################
+
+graph_to_png <-function(x, plot_name, file_type){
+  plot <- x %>%
+    gather(., cycle, baccount, C1:C9, factor_key=TRUE) %>%
+    mutate(label = (paste0(G_or_I, "+", InocSource))) %>%
+    
+    ggplot(aes(color = label)) + geom_point(aes(cycle, baccount, shape = label, group = label)) +
+    geom_line(aes(cycle, baccount, group = label)) + facet_wrap(~ID) + theme(
+      legend.position = c(1, 1),
+      legend.justification = c("right", "top"),
+      legend.box.just = "right",
+      legend.margin = margin(1,1, 1, 1),
+      legend.text = element_text(size = 6)) 
+  
+  ggsave(
+    filename = plot_name,
+    plot = plot,
+    device = file_type
+  )
+}
+
+# driver code 
+
+graph_to_png(df,'baccount-vs-cycle.png','png')
