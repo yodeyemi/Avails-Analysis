@@ -1,0 +1,35 @@
+
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+import numpy as np
+
+
+df = pd.read_csv("C:\\Users\\oodeyemi\\Desktop\\Baccount_4_viz.csv")
+df.columns 
+df = df[['G_or_I', 'strains','InocSource','ID', '1', '2', '3', '4','5', '6', '7', '8', '9']]
+df
+
+####################################################################################################################################################
+
+def graph_to_png(df):
+    # melt the dataframe
+    data = df.melt(id_vars=df.columns[:4], var_name='Cycle', value_name='baccount')
+    
+    # combine G_or_I and inocSource to create label
+    data['label'] = data.G_or_I + '+' + data.InocSource
+    
+
+    # plot a relplot for lines
+    p2 = sns.relplot(data=data, kind='line', x='Cycle', y='baccount', hue='label', col='ID', col_wrap=3, height=3.0, marker='o')
+    p2.savefig("bac-vs-cycle_lineplot.png")
+    
+    # plot a catplot for bars
+    p1 = sns.catplot(data=data, kind='bar', x='Cycle', y='baccount', hue='label', col='ID', col_wrap=2, height=3.25)
+    p1.savefig("bac-vs-cycle_barplot.png")
+    
+
+
+#driver code 
+
+graph_to_png(df)
